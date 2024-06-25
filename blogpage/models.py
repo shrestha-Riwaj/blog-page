@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
+
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=255)
 
@@ -12,6 +17,8 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
     class Meta:
         ordering = ('-publish', )
